@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./nginx
+    depends_on:
+      - logstash
+    ports:
+      - 8080:8080
+  logstash:
+    build: ./logstash
+    depends_on:
+      - elasticsearch
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.1.1
+    container_name: elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - node.name=elasticsearch
+      - bootstrap.memory_lock=true
+      - discovery.seed_hosts=elasticsearch
+      - cluster.initial_master_nodes=elasticsearch
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - 9200:9200
