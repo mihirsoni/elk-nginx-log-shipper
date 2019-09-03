@@ -17,7 +17,7 @@ It should bring up 3 containers :
 
 ### Request generator
 
-Use [hey]() for generating requests.
+Use [hey](https://github.com/rakyll/hey) for generating requests.
 
 * `go get -u github.com/rakyll/hey`
 * `cd $GOPATH/src/github.com/rakyll/hey`
